@@ -3,23 +3,54 @@ import night from "../models/night.model.js";
 
 export const getNightLive = async (req, res) => {
   try {
+    const startIndex = Number(req.query.page) || 0;
+    const limit = Number(req.query.limit) || 6;
+    const categoryFilter = req.query.category
+      ? req.query.category.toLowerCase()
+      : "";
+
     const data = await night.find();
+    const totalCount = data.length;
 
-    const newData = []
-    data.forEach((night) => {
-      const { _id, name, images, description, rating, reviews } = night
-      newData.push({ _id, name, images: images[0], description, rating, reviews: reviews.length })
+    const filteredData = data
+      .filter(
+        (night) =>
+          !categoryFilter || night.category.toLowerCase() === categoryFilter
+      )
+      .map(({ _id, name, images, description, rating, reviews, category }) => ({
+        _id,
+        name,
+        images: images.length > 0 ? images[0] : null,
+        description,
+        rating,
+        reviews: reviews.length,
+        category,
+      }));
+    const filteredCount = filteredData.length;
+    const paginatedData = filteredData.slice(startIndex, startIndex + limit);
 
-    })
+    res.json({
+      totalCount,
+      filteredCount,
+      startIndex,
+      limit,
+      data: paginatedData,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({
+        message: "Ошибка при получении Ночных развлечений",
+        error: error.message,
+      });
+  }
+};
 
-
-
-    res.json(newData);
-
-
-
+export const getNightCategories = async (req, res) => {
+  try {
+    const data = await night.distinct("category");
     res.json(data);
   } catch (error) {
-    console.log(error);
+    res.json("error populate");
   }
 };
