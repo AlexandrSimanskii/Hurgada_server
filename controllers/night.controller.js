@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import night from "../models/night.model.js";
 
-export const getNightLive = async (req, res) => {
+export const getNightLives = async (req, res) => {
   try {
     const startIndex = Number(req.query.page) || 0;
     const limit = Number(req.query.limit) || 6;
@@ -52,5 +52,29 @@ export const getNightCategories = async (req, res) => {
     res.json(data);
   } catch (error) {
     res.json("error populate");
+  }
+};
+export const getNightLive = async (req, res) => {
+ 
+  
+  try {
+    const id = req.params.id;
+
+    console.log(98765789);
+  
+    if (!id) {
+      return res.status(400).json({ message: "Не указан ID заведения" });
+    }
+
+    const response = await night.findById(id);
+
+    if (!response) {
+      return res.status(404).json({ message: "Заведение не найдена" });
+    }
+
+    res.json(response); 
+  } catch (error) {
+    console.error("Ошибка при получении заведения:", error);
+    res.status(500).json({ message: "Ошибка сервера" });
   }
 };

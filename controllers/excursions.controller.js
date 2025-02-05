@@ -11,7 +11,6 @@ export const getExcursions = async (req, res) => {
   try {
     const data = await excursion.find();
 
-
     const totalCount = data.length;
     const newData = [];
 
@@ -29,7 +28,6 @@ export const getExcursions = async (req, res) => {
         rating,
         reviews: reviews.length,
       }));
-    
 
     const filteredCount = filteredData.length; // Количество записей после фильтрации
     const paginatedData = filteredData.slice(startIndex, startIndex + limit);
@@ -52,5 +50,30 @@ export const getExcursionsCategories = async (req, res) => {
     res.json(data);
   } catch (error) {
     res.json("error");
+  }
+};
+
+export const getExcursion = async (req, res) => {
+ 
+  
+  try {
+    const id = req.params.id;
+
+    
+  
+    if (!id) {
+      return res.status(400).json({ message: "Не указан ID экскурсии" });
+    }
+
+    const response = await excursion.findById(id);
+
+    if (!response) {
+      return res.status(404).json({ message: "Экскурсия не найдена" });
+    }
+
+    res.json(response); // Отправляем найденные данные
+  } catch (error) {
+    console.error("Ошибка при получении экскурсии:", error);
+    res.status(500).json({ message: "Ошибка сервера" });
   }
 };
