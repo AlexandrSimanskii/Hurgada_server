@@ -2,8 +2,6 @@ import mongoose from "mongoose";
 import food from "../models/food.model.js";
 
 export const getFoods = async (req, res) => {
-
-
   try {
     const startIndex = Number(req.query.page) || 0;
     const limit = Number(req.query.limit) || 6;
@@ -12,7 +10,7 @@ export const getFoods = async (req, res) => {
       : "";
 
     const data = await food.find();
-    const totalCount = data.length; 
+    const totalCount = data.length;
 
     const filteredData = data
       .filter(
@@ -59,12 +57,10 @@ export const getFoodCategories = async (req, res) => {
 };
 
 export const getFood = async (req, res) => {
- 
-  
   try {
     const id = req.params.id;
     console.log(id);
-  
+
     if (!id) {
       return res.status(400).json({ message: "Не указан ID ресторана" });
     }
@@ -75,7 +71,7 @@ export const getFood = async (req, res) => {
       return res.status(404).json({ message: "Ресторан не найдена" });
     }
 
-    res.json(response); 
+    res.json(response);
   } catch (error) {
     console.error("Ошибка при получении экскурсии:", error);
     res.status(500).json({ message: "Ошибка сервера" });
