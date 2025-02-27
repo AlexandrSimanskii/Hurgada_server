@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import authRouter from "./routes/auth.router.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import excursion from "./routes/excursions.router.js";
@@ -30,6 +31,7 @@ app.listen(PORT, () => {
 app.use(cookieParser());
 app.use(express.json());
 
+app.use("/api", authRouter);
 app.use("/api/excursions", excursion);
 app.use("/api/nights", nightLive);
 app.use("/api/foods", food);
