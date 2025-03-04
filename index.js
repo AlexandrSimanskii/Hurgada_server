@@ -7,6 +7,7 @@ import excursion from "./routes/excursions.router.js";
 import nightLive from "./routes/nightlive.router.js";
 import food from "./routes/food.router.js";
 import estate from "./routes/estate.router.js";
+import cors from "cors";
 
 const app = express();
 
@@ -27,6 +28,13 @@ const PORT = process.env.PORT || 3004;
 app.listen(PORT, () => {
   console.log("Server is running on port 3004");
 });
+
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Разрешаем запросы только с фронтенда
+    credentials: true, // Позволяет передавать куки
+  })
+);
 
 app.use(cookieParser());
 app.use(express.json());
