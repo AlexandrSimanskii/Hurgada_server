@@ -31,7 +31,7 @@ app.listen(PORT, () => {
 
 app.use(
   cors({
-    origin: "https://hurgada-pi.vercel.app/", // Разрешаем запросы только с фронтенда
+    origin: "https://hurgada-pi.vercel.app", // Разрешаем запросы только с фронтенда
     credentials: true, // Позволяет передавать куки
   })
 );
