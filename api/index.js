@@ -1,12 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
-import authRouter from "./routes/auth.router.js";
+import authRouter from "../routes/auth.router.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import excursion from "./routes/excursions.router.js";
-import nightLive from "./routes/nightlive.router.js";
-import food from "./routes/food.router.js";
-import estate from "./routes/estate.router.js";
+import excursion from "../routes/excursions.router.js";
+import nightLive from "../routes/nightlive.router.js";
+import food from "../routes/food.router.js";
+import estate from "../routes/estate.router.js";
 import cors from "cors";
 
 const app = express();
