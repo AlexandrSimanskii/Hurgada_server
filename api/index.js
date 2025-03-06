@@ -46,3 +46,7 @@ app.use("/api/excursions", excursion);
 app.use("/api/nights", nightLive);
 app.use("/api/foods", food);
 app.use("/api/estate", estate);
+
+app.use((req, res) => {
+  res.status(404).json({ success: false, message: "Пиздец " });
+});
