@@ -25,16 +25,18 @@ mongoose
 
 const PORT = process.env.PORT || 3004;
 
+app.use(
+  cors({
+    origin: "https://hurgada-pi.vercel.app",
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
+    credentials: true,
+  })
+);
+
 app.listen(PORT, () => {
   console.log("Server is running on port 3004");
 });
-
-app.use(
-  cors({
-    origin: "https://hurgada-pi.vercel.app", // Разрешаем запросы только с фронтенда
-    credentials: true, // Позволяет передавать куки
-  })
-);
 
 app.use(cookieParser());
 app.use(express.json());
