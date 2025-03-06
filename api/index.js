@@ -23,7 +23,7 @@ mongoose
   })
   .catch((err) => console.log("Не удалось подключиться к MongoDB", err));
 
-// const PORT = process.env.PORT || 3004;
+const PORT = process.env.PORT || 3000;
 
 app.use(
   cors({
