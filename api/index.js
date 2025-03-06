@@ -23,7 +23,7 @@ mongoose
   })
   .catch((err) => console.log("Не удалось подключиться к MongoDB", err));
 
-const PORT = process.env.PORT || 3004;
+// const PORT = process.env.PORT || 3004;
 
 app.use(
   cors({
@@ -34,8 +34,9 @@ app.use(
   })
 );
 
-app.listen(PORT, () => {
-  console.log("Server is running on port 3004");
+app.get("/api", (req, res) => res.send("Express on Vercel"));
+app.listen(3000, () => {
+  console.log("Server is running on port 3000");
 });
 
 app.use(cookieParser());
